@@ -54,7 +54,7 @@ public final class FileUtil
      */
     public static boolean existsDir(Path path)
     {
-        return Objects.nonNull(path) && Files.exists(path) && !Files.isDirectory(path);
+        return Objects.nonNull(path) && Files.exists(path) && Files.isDirectory(path);
     }
 
     /**
