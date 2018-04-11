@@ -9,8 +9,12 @@ import java.io.StringWriter;
  *          创建时间：2018年4月6日 下午4:37:37
  * @since 1.0.0
  */
-public class LogUtil
+public final class LogUtil
 {
+    private LogUtil()
+    {
+        throw new AssertionError("工具类禁止实例化");
+    }
 	public static String errorInfo(Throwable e)
 	{
 		StringWriter trace = new StringWriter();

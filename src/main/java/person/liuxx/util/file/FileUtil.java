@@ -42,22 +42,6 @@ public final class FileUtil
     }
 
     /**
-     * 判断指定路径是否存在一个文件夹，如果指定路径不存在或者指定路径为一个文件，返回false
-     * 
-     * @author 刘湘湘
-     * @version 1.0.0<br>
-     *          创建时间：2018年4月8日 下午2:32:46
-     * @since 1.0.0
-     * @param path
-     *            需要被判断的路径
-     * @return 指定路径是否存在一个文件夹
-     */
-    public static boolean existsDir(Path path)
-    {
-        return Objects.nonNull(path) && Files.exists(path) && Files.isDirectory(path);
-    }
-
-    /**
      * 使用指定路径创建一个空文件，如果文件已经存在，会先删除该文件，然后创建一个空文件
      * 
      * @author 刘湘湘

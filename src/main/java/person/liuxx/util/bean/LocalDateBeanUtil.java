@@ -4,6 +4,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.Converter;
@@ -25,17 +26,21 @@ public final class LocalDateBeanUtil
             @Override
             public <T> T convert(Class<T> type, Object value)
             {
+                return Optional.of(type)
+                        .filter(t -> Objects.equals(t, LocalDate.class))
+                        .map(t -> cast(t, value))
+                        .orElse(null);
+            }
+
+            private <T> T cast(Class<T> type, Object value)
+            {
                 try
                 {
-                    if (type.equals(LocalDate.class))
-                    {
-                        return type.cast(LocalDate.parse(value.toString()));
-                    }
+                    return type.cast(LocalDate.parse(value.toString()));
                 } catch (Exception e)
                 {
-                    //return null;
+                    return null;
                 }
-                return null;
             }
         }, LocalDate.class);
     }
@@ -74,10 +79,9 @@ public final class LocalDateBeanUtil
             {
                 try
                 {
-                    final Object value = beanUtilsBean.getPropertyUtils()
-                            .getSimpleProperty(orig, name);
-                    if (Objects.equals(LocalDate.class, propType) && Objects.isNull(
-                            value))
+                    final Object value = beanUtilsBean.getPropertyUtils().getSimpleProperty(orig,
+                            name);
+                    if (Objects.equals(LocalDate.class, propType) && Objects.isNull(value))
                     {
                         beanUtilsBean.copyProperty(dest, name, "");
                     } else

@@ -11,8 +11,13 @@ import java.security.NoSuchAlgorithmException;
  *          创建时间：2018年4月6日 上午10:22:15
  * @since 1.0.0
  */
-public class EncryptUtil
+public final class EncryptUtil
 {
+    private EncryptUtil()
+    {
+        throw new AssertionError("工具类禁止实例化");
+    }
+
     /**
      * jdk自带的摘要算法，结果中的字母为大写字母
      * 
