@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Optional;
-import net.jcip.annotations.GuardedBy;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author 刘湘湘
@@ -18,7 +18,7 @@ public final class FileUtil
     /**
      * 创建文件或者文件夹时使用的锁对象
      */
-    private static final Object CREAT_LOCK = new Object();
+    private static final CopyOnWriteArrayList<String> CREATE_LOCK_LIST = new CopyOnWriteArrayList<>();
 
     private FileUtil()
     {
@@ -43,56 +43,79 @@ public final class FileUtil
 
     /**
      * 使用指定路径创建一个空文件，如果文件已经存在，会先删除该文件，然后创建一个空文件
+     * <p>
+     * 此方法与{@link #createEmptyFileIfNotExists}共用同步条件。
+     * <p>
+     * 如果多个线程同时执行此方法或其他具有相同同步条件的方法，如果方法参数的路径不同，线程之间互不影响<br>
+     * 如果参数路径相同，最先将参数放入锁定列表的线程执行，其他线程不执行操作
      * 
      * @author 刘湘湘
      * @version 1.0.0<br>
      *          创建时间：2018年4月6日 上午9:37:32
      * @since 1.0.0
      * @param path
-     *            目标路径
+     *            需要创建的文件的完整路径，包含文件名
      * @throws IOException
      *             目标根路径无法抵达，或者目标路径不是一个文件，或者发生其他IO错误
      */
-    @GuardedBy("CREAT_LOCK")
     public static void createEmptyFile(Path path) throws IOException
     {
-        synchronized (CREAT_LOCK)
+        final String LOCK = path.toString();
+        try
         {
-            if (!Files.exists(path.getParent()))
-            {
-                Files.createDirectories(path);
-            }
-            if (Files.exists(path))
-            {
-                Files.delete(path);
-            }
-            Files.createFile(path);
-        }
-    }
-
-    /**
-     * 如果指定路径不存在，使用指定路径创建一个空文件
-     * 
-     * @author 刘湘湘
-     * @version 1.0.0<br>
-     *          创建时间：2018年4月6日 下午5:26:16
-     * @since 1.0.0
-     * @param fileTextItemList
-     * @throws IOException
-     */
-    @GuardedBy("CREAT_LOCK")
-    public static void createEmptyFileIfNotExists(Path path) throws IOException
-    {
-        synchronized (CREAT_LOCK)
-        {
-            if (!Files.exists(path))
+            if (CREATE_LOCK_LIST.addIfAbsent(LOCK))
             {
                 if (!Files.exists(path.getParent()))
                 {
                     Files.createDirectories(path);
                 }
+                if (Files.exists(path))
+                {
+                    Files.delete(path);
+                }
                 Files.createFile(path);
             }
+        } finally
+        {
+            CREATE_LOCK_LIST.remove(LOCK);
+        }
+    }
+
+    /**
+     * 如果指定路径不存在，使用指定路径创建一个空文件
+     * <p>
+     * 此方法与{@link #createEmptyFile}共用同步条件。
+     * <p>
+     * 如果多个线程同时执行此方法或其他具有相同同步条件的方法，如果方法参数的路径不同，线程之间互不影响<br>
+     * 如果参数路径相同，最先将参数放入锁定列表的线程执行，其他线程不执行操作
+     * 
+     * @author 刘湘湘
+     * @version 1.0.0<br>
+     *          创建时间：2018年4月6日 下午5:26:16
+     * @since 1.0.0
+     * @param path
+     *            需要创建的文件的完整路径，包含文件名
+     * @throws IOException
+     */
+    public static void createEmptyFileIfNotExists(Path path) throws IOException
+    {
+        final String LOCK = path.toString();
+        try
+        {
+            if (CREATE_LOCK_LIST.addIfAbsent(LOCK))
+            {
+                if (!Files.exists(path))
+                {
+                    if (!Files.exists(path.getParent()))
+                    {
+                        Files.createDirectories(path);
+                    }
+                    Files.createFile(path);
+                }
+            }
+        } finally
+        {
+            CREATE_LOCK_LIST.remove(LOCK);
         }
     }
 
