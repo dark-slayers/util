@@ -62,9 +62,15 @@ public final class EncryptUtil
      * @return
      * @throws NoSuchAlgorithmException
      */
-    public static String SHA2(String in) throws NoSuchAlgorithmException
+    public static String sha2(String in)
     {
-        return jdkSecurity(in, "SHA-256");
+        try
+        {
+            return jdkSecurity(in, "SHA-256");
+        } catch (NoSuchAlgorithmException e)
+        {
+            throw new EncryptException("使用SHA-256进行hash计算失败！", e);
+        }
     }
 
     /**
@@ -78,9 +84,15 @@ public final class EncryptUtil
      * @return
      * @throws NoSuchAlgorithmException
      */
-    public static String SHA5(String in) throws NoSuchAlgorithmException
+    public static String sha5(String in)
     {
-        return jdkSecurity(in, "SHA-512");
+        try
+        {
+            return jdkSecurity(in, "SHA-512");
+        } catch (NoSuchAlgorithmException e)
+        {
+            throw new EncryptException("使用SHA-512进行hash计算失败！", e);
+        }
     }
 
     /**
@@ -101,11 +113,11 @@ public final class EncryptUtil
     {
         String in = username + password;
         int key = 7;
-        String one = SHA5(in);
+        String one = sha5(in);
         String encryOne = one.substring(0, key) + one.substring(one.length() - key) + username;
-        String two = SHA2(encryOne).toLowerCase();
+        String two = sha2(encryOne).toLowerCase();
         String encryTwo = two.substring(0, key) + password + two.substring(two.length() - key);
-        String three = SHA5(encryTwo);
+        String three = sha5(encryTwo);
         return three.toLowerCase();
     }
 }
