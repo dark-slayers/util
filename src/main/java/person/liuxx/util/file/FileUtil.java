@@ -60,10 +60,10 @@ public final class FileUtil
      */
     public static void createEmptyFile(Path path) throws IOException
     {
-        final String LOCK = path.toString();
+        final String lock = path.toString();
         try
         {
-            if (CREATE_LOCK_LIST.addIfAbsent(LOCK))
+            if (CREATE_LOCK_LIST.addIfAbsent(lock))
             {
                 if (!Files.exists(path.getParent()))
                 {
@@ -77,7 +77,7 @@ public final class FileUtil
             }
         } finally
         {
-            CREATE_LOCK_LIST.remove(LOCK);
+            CREATE_LOCK_LIST.remove(lock);
         }
     }
 
@@ -99,10 +99,10 @@ public final class FileUtil
      */
     public static void createEmptyFileIfNotExists(Path path) throws IOException
     {
-        final String LOCK = path.toString();
+        final String lock = path.toString();
         try
         {
-            if (CREATE_LOCK_LIST.addIfAbsent(LOCK))
+            if (CREATE_LOCK_LIST.addIfAbsent(lock))
             {
                 if (!Files.exists(path))
                 {
@@ -115,7 +115,7 @@ public final class FileUtil
             }
         } finally
         {
-            CREATE_LOCK_LIST.remove(LOCK);
+            CREATE_LOCK_LIST.remove(lock);
         }
     }
 
