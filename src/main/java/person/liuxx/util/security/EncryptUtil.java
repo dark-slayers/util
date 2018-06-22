@@ -39,7 +39,7 @@ public final class EncryptUtil
         currentAlgorithm.reset();
         currentAlgorithm.update(in.getBytes());
         byte[] hash = currentAlgorithm.digest();
-        for (int i = 0; i < hash.length; i++)
+        for (int i = 0, max = hash.length; i < max; i++)
         {
             int v = hash[i] & 0xFF;
             if (v < 16)
