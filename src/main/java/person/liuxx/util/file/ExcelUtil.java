@@ -130,8 +130,9 @@ public final class ExcelUtil
      * @author 刘湘湘
      * @version 1.0.0<br>
      *          创建时间：2018年4月6日 下午3:44:03
-     * @since 1.4.1
+     * @since 1.0.0
      * @param cell
+     *            单元格对象
      * @return
      */
     public static Optional<String> getCellText(Cell cell)
@@ -141,6 +142,29 @@ public final class ExcelUtil
             c.setCellType(CellType.STRING);
             return cell.getStringCellValue();
         });
+        return result;
+    }
+
+    /**
+     * 将单元格视为文本格式，获取字符串的Optional,<b>字符串忽视前后空格</b><br>
+     * 如果获取失败，返回空Optional
+     * 
+     * @author 刘湘湘
+     * @version 1.0.0<br>
+     *          创建时间：2018年8月29日 下午3:58:47
+     * @since 1.0.0
+     * @param sheet
+     *            表格对象
+     * @param rowIndex
+     *            行序号
+     * @param cellIndex
+     *            列序号
+     * @return
+     */
+    public static Optional<String> getCellText(Sheet sheet, int rowIndex, int cellIndex)
+    {
+        Optional<String> result = sheetMapToCell(sheet, rowIndex, cellIndex).flatMap(
+                c -> getCellText(c)).map(s -> s.trim());
         return result;
     }
 
@@ -164,9 +188,36 @@ public final class ExcelUtil
         return result;
     }
 
+    /**
+     * 将单元格视为日期格式，获取LocalDate值的Optional,如果获取失败，返回空Optional
+     * 
+     * @author 刘湘湘
+     * @version 1.0.0<br>
+     *          创建时间：2018年8月29日 下午4:38:15
+     * @since 1.0.0
+     * @param sheet
+     *            表格对象
+     * @param rowIndex
+     *            行序号
+     * @param cellIndex
+     *            列序号
+     * @return
+     */
+    public static Optional<LocalDate> getCellDate(Sheet sheet, int rowIndex, int cellIndex)
+    {
+        Optional<LocalDate> result = sheetMapToCell(sheet, rowIndex, cellIndex).flatMap(
+                c -> getCellDate(c));
+        return result;
+    }
+
     private static Date getDate(Cell cell)
     {
         cell.setCellType(CellType.NUMERIC);
         return cell.getDateCellValue();
+    }
+
+    private static Optional<Cell> sheetMapToCell(Sheet sheet, int rowIndex, int cellIndex)
+    {
+        return Optional.of(sheet).map(s -> s.getRow(rowIndex)).map(r -> r.getCell(cellIndex));
     }
 }
