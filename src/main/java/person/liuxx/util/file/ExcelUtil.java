@@ -105,6 +105,28 @@ public final class ExcelUtil
     }
 
     /**
+     * 将单元格视为数值格式，获取整型数值的Optional,如果获取失败，返回空Optional
+     * 
+     * @author 刘湘湘
+     * @version 1.0.0<br>
+     *          创建时间：2018年8月29日 下午4:50:26
+     * @since 1.0.0
+     * @param sheet
+     *            表格对象
+     * @param rowIndex
+     *            行序号
+     * @param cellIndex
+     *            列序号
+     * @return
+     */
+    public static Optional<Integer> getCellInteger(Sheet sheet, int rowIndex, int cellIndex)
+    {
+        Optional<Integer> result = sheetMapToCell(sheet, rowIndex, cellIndex).flatMap(
+                c -> getCellInteger(c));
+        return result;
+    }
+
+    /**
      * 将单元格视为数值格式，获取Double型数值的Optional,如果获取失败，返回空Optional
      * 
      * @author 刘湘湘
