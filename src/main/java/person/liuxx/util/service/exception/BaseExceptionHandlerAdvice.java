@@ -15,7 +15,7 @@ import person.liuxx.util.service.reponse.ErrorResponse;
  */
 public class BaseExceptionHandlerAdvice
 {
-    private final String[]  classNameListArray = 
+    private final String[] classNameListArray =
     { "person.liuxx.util.service.exception.SearchException", "java.lang.IllegalArgumentException",
             "java.time.format.DateTimeParseException", };
 
@@ -37,8 +37,9 @@ public class BaseExceptionHandlerAdvice
             }
         case "java.lang.IllegalArgumentException":
             {
-                return new ErrorResponse(400, 40001, "请求参数格式错误", "失败信息：" + LogUtil.errorInfo(e),
-                        "more info");
+                IllegalArgumentException e1 = (IllegalArgumentException) e;
+                return new ErrorResponse(400, 40001, "请求参数格式错误" + e1.getMessage(), "失败信息：" + LogUtil
+                        .errorInfo(e), "more info");
             }
         case "java.time.format.DateTimeParseException":
             {
