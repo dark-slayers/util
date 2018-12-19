@@ -60,15 +60,14 @@ public final class FileUtil
      */
     public static void createEmptyFile(Path path) throws IOException
     {
+        Objects.requireNonNull(path);
+        Objects.requireNonNull(path.getParent());
         final String lock = path.toString();
         try
         {
             if (CREATE_LOCK_LIST.addIfAbsent(lock))
             {
-                if (!Files.exists(path.getParent()))
-                {
-                    Files.createDirectories(path);
-                }
+                DirUtil.createDirIfNotExists(path.getParent());
                 if (Files.exists(path))
                 {
                     Files.delete(path);
@@ -99,17 +98,16 @@ public final class FileUtil
      */
     public static void createEmptyFileIfNotExists(Path path) throws IOException
     {
+        Objects.requireNonNull(path);
+        Objects.requireNonNull(path.getParent());
         final String lock = path.toString();
         try
         {
             if (CREATE_LOCK_LIST.addIfAbsent(lock))
             {
-                if (!Files.exists(path))
+                if (!existsFile(path))
                 {
-                    if (!Files.exists(path.getParent()))
-                    {
-                        Files.createDirectories(path);
-                    }
+                    DirUtil.createDirIfNotExists(path.getParent());
                     Files.createFile(path);
                 }
             }

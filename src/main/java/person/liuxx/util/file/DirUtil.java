@@ -10,6 +10,7 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author 刘湘湘
@@ -22,7 +23,7 @@ public final class DirUtil
     /**
      * 创建文件或者文件夹时使用的锁对象
      */
-    static final Object CREAT_DIR_LOCK = new Object();
+    private static final CopyOnWriteArrayList<String> CREATE_LOCK_LIST = new CopyOnWriteArrayList<>();
 
     private DirUtil()
     {
@@ -198,5 +199,40 @@ public final class DirUtil
                 return super.postVisitDirectory(dir, exc);
             }
         });
+    }
+
+    /**
+     * 如果指定的路径不存在文件夹，创建该文件夹
+     * 
+     * @author 刘湘湘
+     * @version 1.1.0<br>
+     *          创建时间：2018年12月19日 上午9:29:55
+     * @since 1.1.0
+     * @param path
+     * @throws IOException
+     */
+    public static void createDirIfNotExists(Path path) throws IOException
+    {
+        Objects.requireNonNull(path);
+        final String lock = path.toString();
+        try
+        {
+            for (;;)
+            {
+                if (CREATE_LOCK_LIST.addIfAbsent(lock))
+                {
+                    if (exists(path))
+                    {
+                        break;
+                    } else
+                    {
+                        Files.createDirectories(path);
+                    }
+                }
+            }
+        } finally
+        {
+            CREATE_LOCK_LIST.remove(lock);
+        }
     }
 }
