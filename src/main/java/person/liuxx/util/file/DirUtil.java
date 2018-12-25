@@ -41,15 +41,15 @@ public final class DirUtil
      *            需要被判断的路径
      * @return 指定路径是否存在一个文件夹
      */
-    public static boolean exists(Path path)
+    public static boolean existsDir(Path path)
     {
         return Objects.nonNull(path) && Files.exists(path) && Files.isDirectory(path);
     }
 
     public static boolean sameOrSub(Path parent, Path sub) throws IOException
     {
-        if (Objects.isNull(parent) || Objects.isNull(sub) || (!exists(parent)) || (!Objects.equals(
-                parent.getRoot(), sub.getRoot())))
+        if (Objects.isNull(parent) || Objects.isNull(sub) || (!existsDir(parent)) || (!Objects
+                .equals(parent.getRoot(), sub.getRoot())))
         {
             return false;
         }
@@ -214,6 +214,10 @@ public final class DirUtil
     public static void createDirIfNotExists(Path path) throws IOException
     {
         Objects.requireNonNull(path);
+        if (existsDir(path))
+        {
+            return;
+        }
         final String lock = path.toString();
         try
         {
@@ -221,12 +225,14 @@ public final class DirUtil
             {
                 if (CREATE_LOCK_LIST.addIfAbsent(lock))
                 {
-                    if (exists(path))
-                    {
-                        break;
-                    } else
+                    if (!existsDir(path))
                     {
                         Files.createDirectories(path);
+                    }
+                    CREATE_LOCK_LIST.remove(lock);
+                    if (existsDir(path))
+                    {
+                        break;
                     }
                 }
             }

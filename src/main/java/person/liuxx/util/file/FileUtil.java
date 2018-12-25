@@ -100,6 +100,10 @@ public final class FileUtil
     {
         Objects.requireNonNull(path);
         Objects.requireNonNull(path.getParent());
+        if (existsFile(path))
+        {
+            return;
+        }
         final String lock = path.toString();
         try
         {
