@@ -90,8 +90,8 @@ public final class StringUtil
      * @version 1.0.0<br>
      *          创建时间：2018年4月4日 下午4:35:07
      * @since 1.0.0
-     * @param words
-     * @return
+     * @param words 需要被判断的字符串数组
+     * @return 指定字符串数组其中一个元素为空白就返回true
      */
     public static boolean isAnyEmpty(String... words)
     {

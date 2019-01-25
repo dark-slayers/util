@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>person.liuxx</groupId>
 	<artifactId>util</artifactId>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 	<name>util</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -98,6 +98,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<finalName>util-springboot</finalName>
+		<finalName>util</finalName>
 	</build>
 </project>

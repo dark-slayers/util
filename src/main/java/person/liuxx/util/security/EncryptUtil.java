@@ -26,11 +26,12 @@ public final class EncryptUtil
      *          创建时间：2018年4月6日 上午10:26:57
      * @since 1.0.0
      * @param in
-     *            需要被加密的文本
+     *            需要使用摘要算法加密的文本
      * @param algorithm
      *            摘要算法名称：MD5、SHA-1、SHA-256等
-     * @return
+     * @return 使用摘要算法散列之后的文本，大写
      * @throws NoSuchAlgorithmException
+     *             摘要算法不被支持
      */
     public static String jdkSecurity(String in, String algorithm) throws NoSuchAlgorithmException
     {
@@ -52,15 +53,16 @@ public final class EncryptUtil
     }
 
     /**
-     * 对字符串进行SHA-256加密，获取到加密后的文本（大写，长度64）
+     * 对字符串进行SHA-256散列计算，获取到散列后的文本（大写，长度64）
      * 
      * @author 刘湘湘
      * @version 1.0.0<br>
      *          创建时间：2018年4月6日 下午5:24:08
      * @since 1.0.0
      * @param in
-     * @return
-     * @throws NoSuchAlgorithmException
+     *            需要使用摘要算法加密的文本
+     * @return 使用SHA-256摘要算法散列之后的文本，大写
+     * 
      */
     public static String sha2(String in)
     {
@@ -74,15 +76,16 @@ public final class EncryptUtil
     }
 
     /**
-     * 对字符串进行SHA-512加密，获取到加密后的文本（大写，长度128）
+     * 对字符串进行SHA-512加密，获取到散列后的文本（大写，长度128）
      * 
      * @author 刘湘湘
      * @version 1.0.0<br>
      *          创建时间：2018年4月6日 下午5:29:34
      * @since 1.0.0
      * @param in
-     * @return
-     * @throws NoSuchAlgorithmException
+     *            需要使用摘要算法加密的文本
+     * @return 使用SHA-512摘要算法散列之后的文本，大写
+     * 
      */
     public static String sha5(String in)
     {
@@ -96,7 +99,7 @@ public final class EncryptUtil
     }
 
     /**
-     * 对作为用户名和密码的参数字符串进行复杂运算，获取加密后的字符串（小写，长度128）
+     * 对作为用户名和密码的参数字符串进行复杂运算，获取散列后的字符串（小写，长度128）
      * 
      * @author 刘湘湘
      * @version 1.0.0<br>
@@ -106,8 +109,9 @@ public final class EncryptUtil
      *            被视为用户名的字符串
      * @param password
      *            被视为密码的字符串
-     * @return
+     * @return 使用自定义算法进行散列之后的字符串
      * @throws NoSuchAlgorithmException
+     *             摘要算法不被支持
      */
     public static String encrypt(String username, String password) throws NoSuchAlgorithmException
     {

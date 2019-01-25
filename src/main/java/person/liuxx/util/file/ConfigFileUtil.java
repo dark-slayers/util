@@ -36,9 +36,9 @@ public final class ConfigFileUtil
      * @version 1.0.0<br>
      *          创建时间：2018年4月6日 下午1:42:59
      * @since 1.0.0
-     * @param path
-     * @return
-     * @throws IOException
+     * @param path 配置文件路径
+     * @return 配置文件解析后的键值对map
+     * @throws IOException 读取配置文件时发生IO异常
      */
     public static Map<String, String> read(String path) throws IOException
     {

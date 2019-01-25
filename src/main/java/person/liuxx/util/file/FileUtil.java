@@ -94,7 +94,7 @@ public final class FileUtil
      * @since 1.0.0
      * @param path
      *            需要创建的文件的完整路径，包含文件名
-     * @throws IOException
+     * @throws IOException 创建文件时发生IO异常
      */
     public static void createEmptyFileIfNotExists(Path path) throws IOException
     {
@@ -128,8 +128,8 @@ public final class FileUtil
      * @version 1.0.0<br>
      *          创建时间：2018年4月6日 下午3:09:55
      * @since 1.0.0
-     * @param path
-     * @return
+     * @param path 需要被解析的文件路径
+     * @return 文件名对象FileName的Optional包装器
      */
     public static Optional<FileName> getFileName(Path path)
     {

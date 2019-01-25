@@ -38,7 +38,7 @@ public final class ExcelUtil
      * 符合下列全部条件时返回true：<br>
      * 1、单元格对象不为<em>null</em><br>
      * 2、单元格的类型为<strong>CellType.STRING</strong><br>
-     * 3、 单元格的值<mark><strong>忽略前后空白</strong></mark>与给定字符串一致
+     * 3、 单元格的值<strong>忽略前后空白</strong>与给定字符串一致
      * 
      * @author 刘湘湘
      * @version 1.0.0<br>
@@ -91,8 +91,8 @@ public final class ExcelUtil
      * @version 1.0.0<br>
      *          创建时间：2018年4月6日 上午11:48:40
      * @since 1.0.0
-     * @param cell
-     * @return
+     * @param cell 单元格对象
+     * @return 从单元格获取到的Integer对象的Optional包装器
      */
     public static Optional<Integer> getCellInteger(Cell cell)
     {
@@ -117,8 +117,8 @@ public final class ExcelUtil
      *            行序号
      * @param cellIndex
      *            列序号
-     * @return
-     */
+     * @return 从单元格获取到的Integer对象的Optional包装器
+     */ 
     public static Optional<Integer> getCellInteger(Sheet sheet, int rowIndex, int cellIndex)
     {
         Optional<Integer> result = sheetMapToCell(sheet, rowIndex, cellIndex).flatMap(
@@ -133,8 +133,8 @@ public final class ExcelUtil
      * @version 1.0.0<br>
      *          创建时间：2018年4月6日 上午11:48:40
      * @since 1.0.0
-     * @param cell
-     * @return
+     * @param cell 单元格对象
+     * @return 从单元格获取到的Double对象的Optional包装器
      */
     public static Optional<Double> getCellDouble(Cell cell)
     {
@@ -155,7 +155,7 @@ public final class ExcelUtil
      * @since 1.0.0
      * @param cell
      *            单元格对象
-     * @return
+     * @return 从单元格获取到的String对象的Optional包装器
      */
     public static Optional<String> getCellText(Cell cell)
     {
@@ -181,7 +181,7 @@ public final class ExcelUtil
      *            行序号
      * @param cellIndex
      *            列序号
-     * @return
+     * @return 从单元格获取到的String对象的Optional包装器
      */
     public static Optional<String> getCellText(Sheet sheet, int rowIndex, int cellIndex)
     {
@@ -197,8 +197,8 @@ public final class ExcelUtil
      * @version 1.0.0<br>
      *          创建时间：2018年4月6日 下午4:16:09
      * @since 1.0.0
-     * @param cell
-     * @return
+     * @param cell 单元格对象
+     * @return 从单元格获取到的LocalDate对象的Optional包装器
      */
     public static Optional<LocalDate> getCellDate(Cell cell)
     {
@@ -223,7 +223,7 @@ public final class ExcelUtil
      *            行序号
      * @param cellIndex
      *            列序号
-     * @return
+     * @return 从单元格获取到的LocalDate对象的Optional包装器
      */
     public static Optional<LocalDate> getCellDate(Sheet sheet, int rowIndex, int cellIndex)
     {

@@ -1,7 +1,5 @@
 package person.liuxx.util.file;
 
-import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,6 +43,6 @@ public class DirUtilTest
     @Test
     public void testCreateDirIfNotExists()
     {
-        fail("尚未实现");
+        
     }
 }

@@ -111,7 +111,7 @@ public final class DirUtil
      *            源文件夹
      * @param target
      *            目标文件夹
-     * @throws IOException
+     * @throws IOException 操作时发生IO异常
      */
     public static void move(Path source, Path target) throws IOException
     {
@@ -131,7 +131,7 @@ public final class DirUtil
      *            源文件夹
      * @param target
      *            目标文件夹
-     * @throws IOException
+     * @throws IOException 操作时发生IO异常
      */
     public static void copy(Path source, Path target) throws IOException
     {
@@ -208,8 +208,8 @@ public final class DirUtil
      * @version 1.1.0<br>
      *          创建时间：2018年12月19日 上午9:29:55
      * @since 1.1.0
-     * @param path
-     * @throws IOException
+     * @param path 目标路径
+     * @throws IOException 操作时发生IO异常
      */
     public static void createDirIfNotExists(Path path) throws IOException
     {
