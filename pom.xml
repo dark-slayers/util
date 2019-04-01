@@ -11,7 +11,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<poi.version>3.16</poi.version>
-		<log4j.version>2.6.2</log4j.version>
+		<fastjson.version>1.2.21</fastjson.version>
+		<commons.version>1.9.3</commons.version>
 	</properties>
 	<dependencies>
 		<!-- 测试框架 -->
@@ -37,28 +38,17 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>${poi.version}</version>
 		</dependency>
-		<!-- 日志框架 -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
 		<!-- JSON工具 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.21</version>
+			<version>${fastjson.version}</version>
 		</dependency>
 		<!-- Bean工具 -->
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
-			<version>1.9.3</version>
+			<version>${commons.version}</version>
 		</dependency>
 	</dependencies>
 	<build>

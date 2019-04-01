@@ -12,7 +12,6 @@ import java.util.stream.Stream;
  * @author 刘湘湘
  * @version 1.0.0<br>
  *          创建时间：2018年4月4日 上午11:53:35
- * @since 1.0.0
  */
 public final class StringUtil
 {
@@ -26,8 +25,7 @@ public final class StringUtil
     /**
      * 位于0X20之后的空白字符
      */
-    private static final Set<String> BLANK_CHARACTER = Arrays.stream(
-            BLANK_CHARACTER_ARRAY)
+    private static final Set<String> BLANK_CHARACTER = Arrays.stream(BLANK_CHARACTER_ARRAY)
             .mapToObj(i -> new String(Character.toChars(i)))
             .collect(Collectors.toSet());
 
@@ -40,7 +38,6 @@ public final class StringUtil
      * @author 刘湘湘
      * @version 1.0.0<br>
      *          创建时间：2018年4月4日 下午2:52:50
-     * @since 1.0.0
      * @param word
      *            需要被判断的字符串
      * @return 指定字符串是否为空白
@@ -56,7 +53,6 @@ public final class StringUtil
      * @author 刘湘湘
      * @version 1.0.0<br>
      *          创建时间：2018年4月4日 下午4:34:56
-     * @since 1.0.0
      * @param word
      *            需要被判断的字符串
      * @return 指定字符串是否为空白
@@ -73,7 +69,6 @@ public final class StringUtil
      * @author 刘湘湘
      * @version 1.0.0<br>
      *          创建时间：2018年4月4日 下午2:56:47
-     * @since 1.0.0
      * @param words
      *            需要被判断的字符串数组
      * @return 指定字符串数组是否全部为空白
@@ -89,8 +84,8 @@ public final class StringUtil
      * @author 刘湘湘
      * @version 1.0.0<br>
      *          创建时间：2018年4月4日 下午4:35:07
-     * @since 1.0.0
-     * @param words 需要被判断的字符串数组
+     * @param words
+     *            需要被判断的字符串数组
      * @return 指定字符串数组其中一个元素为空白就返回true
      */
     public static boolean isAnyEmpty(String... words)
