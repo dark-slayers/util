@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>person.liuxx</groupId>
 	<artifactId>util</artifactId>
-	<version>1.2.0</version>
+	<version>1.3.0</version>
 	<name>util</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -13,6 +13,8 @@
 		<poi.version>3.16</poi.version>
 		<fastjson.version>1.2.21</fastjson.version>
 		<commons.version>1.9.3</commons.version>
+		<http_client.version>5.0-alpha2</http_client.version>
+		<html_parse.version>1.10.2</html_parse.version>
 	</properties>
 	<dependencies>
 		<!-- 测试框架 -->
@@ -49,6 +51,18 @@
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>${commons.version}</version>
+		</dependency>
+		<!-- httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents.client5</groupId>
+			<artifactId>httpclient5</artifactId>
+			<version>${http_client.version}</version>
+		</dependency>
+		<!-- HTML解析 -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>${html_parse.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
