@@ -27,14 +27,14 @@ public final class HttpUtil
     private static final long TIME_OUT = 15;
 
     /**
-     * 向目标地址发送简单get请求，将结果解析为文本
+     * 向目标地址发送简单get请求，将结果使用UTF-8编码转为字符串
      * 
      * @author 刘湘湘
      * @since 2019年4月8日 下午5:41:11
      * @param url
      *            目标URL
-     * @return
-     * @throws IOException
+     * @return get请求获取到文本
+     * @throws IOException 请求过程发生IO异常
      */
     public static Optional<String> simpleGet(String url) throws IOException
     {
