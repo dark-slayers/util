@@ -36,9 +36,11 @@ public final class ConfigFileUtil
      * @version 1.0.0<br>
      *          创建时间：2018年4月6日 下午1:42:59
      * @since 1.0.0
-     * @param path 配置文件路径
+     * @param path
+     *            配置文件路径
      * @return 配置文件解析后的键值对map
-     * @throws IOException 读取配置文件时发生IO异常
+     * @throws IOException
+     *             读取配置文件时发生IO异常
      */
     public static Map<String, String> read(String path) throws IOException
     {
@@ -49,11 +51,23 @@ public final class ConfigFileUtil
                 .filter(s -> !s.startsWith("/"))
                 .filter(s -> !s.startsWith("="))
                 .filter(s -> !s.endsWith("="))
-                .filter(s -> Arrays.stream(s.split(""))
-                        .filter(c -> Objects.equals("=", c))
-                        .count() == 1)
+                .filter(s -> hasOnlyOneEqualSign(s))
                 .map(s -> s.split("="))
                 .collect(Collectors.toMap(s -> s[0].trim(), s -> s[1].trim()));
         return result;
+    }
+
+    /**
+     * 判断字符串中是否只包含一个等号（=）
+     * 
+     * @author 刘湘湘
+     * @since 2019年4月9日 下午5:47:28
+     * @param s
+     *            需要分析的字符串
+     * @return 字符串是否是包含一个等号
+     */
+    private static boolean hasOnlyOneEqualSign(String s)
+    {
+        return Arrays.stream(s.split("")).filter(c -> Objects.equals("=", c)).count() == 1;
     }
 }
