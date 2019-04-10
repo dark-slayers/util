@@ -15,6 +15,7 @@
 		<commons.version>1.9.3</commons.version>
 		<http_client.version>5.0-alpha2</http_client.version>
 		<html_parse.version>1.10.2</html_parse.version>
+		<lombok.version>1.18.2</lombok.version>
 	</properties>
 	<dependencies>
 		<!-- 测试框架 -->
@@ -63,6 +64,12 @@
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>${html_parse.version}</version>
+		</dependency>
+		<!-- POJO注解简化方法 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
