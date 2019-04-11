@@ -115,8 +115,7 @@ public final class DirUtil
      *            源文件夹
      * @param target
      *            目标文件夹
-     * @throws IOException
-     *             操作时发生IO异常
+     * 
      */
     public static void move(Path source, Path target)
     {

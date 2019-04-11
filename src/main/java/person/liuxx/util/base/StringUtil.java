@@ -1,7 +1,7 @@
 package person.liuxx.util.base;
 
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -30,10 +30,11 @@ public final class StringUtil
             .collect(Collectors.toSet());
 
     /**
-     * 判断指定字符串是否为空白（字符串对象对null或者字符串除去前后空白之后长度为0）
+     * 判断指定字符串是否为空白（字符串对象为null或者字符串除去前后空白之后长度为0）
      * <p>
-     * 此方法不能识别全角空格等位于ASCII码20（空格字符）之后的空白字符，如果需要识别全角空格等字符，需要使用方法
-     * {@link #isBlank(String)}
+     * 此方法调用String内置方法trim()后根据剩余字符串长度判断字符串是否为空，<br>
+     * 不能识别全角空格等位于ASCII码20（空格字符）之后的空白字符，<br>
+     * 如果需要识别全角空格等字符，需要使用方法 {@link #isBlank(String)}
      * 
      * @author 刘湘湘
      * @version 1.0.0<br>
@@ -44,7 +45,11 @@ public final class StringUtil
      */
     public static boolean isEmpty(String word)
     {
-        return Objects.isNull(word) || word.trim().length() == 0;
+        return !Optional.ofNullable(word)
+                .map(w -> w.trim())
+                .map(w -> w.length())
+                .filter(i -> i > 0)
+                .isPresent();
     }
 
     /**
@@ -59,12 +64,28 @@ public final class StringUtil
      */
     public static boolean isBlank(String word)
     {
-        return word.isEmpty() || Stream.of(word.split("")).allMatch(t -> isEmpty(t)
-                || BLANK_CHARACTER.contains(t));
+        return word.isEmpty() || Stream.of(word.split("")).allMatch(t -> singleStringIsBlank(t));
     }
 
     /**
-     * 判断指定字符串数组是否全部为空白（字符串对象对null或者字符串除去前后空白之后长度为0）
+     * 判断单一字符(长度为1的String)是否为空白
+     * 
+     * @author 刘湘湘
+     * @since 2019年4月11日 下午4:30:04
+     * @param singleString
+     *            需要被判断的参数，长度为1的String
+     * @return
+     */
+    private static boolean singleStringIsBlank(String singleString)
+    {
+        return isEmpty(singleString) || BLANK_CHARACTER.contains(singleString);
+    }
+
+    /**
+     * 判断指定字符串数组是否全部为空白（字符串对象为null或者字符串除去前后空白之后长度为0）
+     * <p>
+     * 此方法调用isEmpty(), 不能识别全角空格等位于ASCII码20（空格字符）之后的空白字符<br>
+     * {@link #isEmpty(String)}
      * 
      * @author 刘湘湘
      * @version 1.0.0<br>
@@ -80,6 +101,9 @@ public final class StringUtil
 
     /**
      * 判断指定字符串数组是否有其中一个为空白（字符串对象对null或者字符串除去前后空白之后长度为0）
+     * <p>
+     * 此方法调用isEmpty(), 不能识别全角空格等位于ASCII码20（空格字符）之后的空白字符<br>
+     * {@link #isEmpty(String)}
      * 
      * @author 刘湘湘
      * @version 1.0.0<br>
