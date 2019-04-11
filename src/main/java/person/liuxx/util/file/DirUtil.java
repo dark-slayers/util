@@ -13,6 +13,8 @@ import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
+ * 目录操作方法类，该类的大部分方法都将IOException包装为RuntimeException,调用时需要注意异常情况的处理
+ * 
  * @author 刘湘湘
  * @version 1.0.0<br>
  *          创建时间：2018年4月6日 上午10:41:09
@@ -102,6 +104,8 @@ public final class DirUtil
      * 移动源文件夹的内容至目标文件夹,移动完成后删除源文件夹<br>
      * <code>move(Paths.get("D:/a"),Paths.get("D:/b"))</code><br>
      * 操作会将a文件夹里面的内容移动到b文件夹中，同时删除a文件夹
+     * <p>
+     * 该方法将IOException包装为RuntimeException,调用时需要注意异常情况的处理
      * 
      * @author 刘湘湘
      * @version 1.0.0<br>
@@ -111,17 +115,26 @@ public final class DirUtil
      *            源文件夹
      * @param target
      *            目标文件夹
-     * @throws IOException 操作时发生IO异常
+     * @throws IOException
+     *             操作时发生IO异常
      */
-    public static void move(Path source, Path target) throws IOException
+    public static void move(Path source, Path target)
     {
-        operateDir(true, source, target);
+        try
+        {
+            operateDir(true, source, target);
+        } catch (IOException e)
+        {
+            throw new FileOperateException("目录移动发生异常！", e);
+        }
     }
 
     /**
      * 复制源文件夹的内容至目标文件夹<br>
      * <code>copy(Paths.get("D:/a"),Paths.get("D:/b"))</code><br>
      * 操作会将a文件夹里面的内容复制到b文件夹中
+     * <p>
+     * 该方法将IOException包装为RuntimeException,调用时需要注意异常情况的处理
      * 
      * @author 刘湘湘
      * @version 1.0.0<br>
@@ -131,11 +144,16 @@ public final class DirUtil
      *            源文件夹
      * @param target
      *            目标文件夹
-     * @throws IOException 操作时发生IO异常
      */
-    public static void copy(Path source, Path target) throws IOException
+    public static void copy(Path source, Path target)
     {
-        operateDir(false, source, target);
+        try
+        {
+            operateDir(false, source, target);
+        } catch (IOException e)
+        {
+            throw new FileOperateException("目录复制发生异常！", e);
+        }
     }
 
     public static void operateDir(boolean move, Path source, Path target, CopyOption... options)
@@ -208,10 +226,10 @@ public final class DirUtil
      * @version 1.1.0<br>
      *          创建时间：2018年12月19日 上午9:29:55
      * @since 1.1.0
-     * @param path 目标路径
-     * @throws IOException 操作时发生IO异常
+     * @param path
+     *            目标路径
      */
-    public static void createDirIfNotExists(Path path) throws IOException
+    public static void createDirIfNotExists(Path path)
     {
         Objects.requireNonNull(path);
         if (existsDir(path))
@@ -236,6 +254,9 @@ public final class DirUtil
                     }
                 }
             }
+        } catch (IOException e)
+        {
+            throw new FileOperateException("创建目录发生异常！", e);
         } finally
         {
             CREATE_LOCK_LIST.remove(lock);
