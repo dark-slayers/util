@@ -41,13 +41,7 @@ public class HttpUtilTest
     @Test
     public void testSimpleGet()
     {
-        try
-        {
-            Optional<String> getOptional = HttpUtil.simpleGet("https://www.baidu.com");
-            assertTrue(getOptional.isPresent());
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        Optional<String> getOptional = HttpUtil.simpleGet("https://www.baidu.com");
+        assertTrue(getOptional.isPresent());
     }
 }

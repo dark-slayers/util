@@ -34,9 +34,10 @@ public final class HttpUtil
      * @param url
      *            目标URL
      * @return get请求获取到文本
-     * @throws IOException 请求过程发生IO异常
+     * @throws IOException
+     *             请求过程发生IO异常
      */
-    public static Optional<String> simpleGet(String url) throws IOException
+    public static Optional<String> simpleGet(String url)
     {
         try (CloseableHttpClient httpclient = HttpClients.createDefault())
         {
@@ -60,6 +61,9 @@ public final class HttpUtil
             final ResponseHandler<Optional<String>> responseHandler = new SimpleResponseHandler();
             Optional<String> responseBody = httpclient.execute(httpget, responseHandler);
             return responseBody;
+        } catch (IOException e)
+        {
+            throw new HttpRequestFailedException("请求失败", e);
         }
     }
 }
