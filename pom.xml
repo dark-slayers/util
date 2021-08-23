@@ -14,7 +14,7 @@
 		<fastjson.version>1.2.25</fastjson.version>
 		<commons.version>1.9.3</commons.version>
 		<http_client.version>5.0-alpha2</http_client.version>
-		<html_parse.version>1.10.2</html_parse.version>
+		<html_parse.version>1.14.2</html_parse.version>
 		<lombok.version>1.18.2</lombok.version>
 	</properties>
 	<dependencies>
