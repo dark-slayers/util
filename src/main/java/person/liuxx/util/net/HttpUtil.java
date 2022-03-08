@@ -15,12 +15,11 @@ import org.apache.hc.core5.http.io.ResponseHandler;
 
 /**
  * @author 刘湘湘
+ * 
  * @since 2019年4月8日 下午5:36:05
  */
-public final class HttpUtil
-{
-    private HttpUtil()
-    {
+public final class HttpUtil {
+    private HttpUtil() {
         throw new AssertionError("工具类禁止实例化");
     }
 
@@ -30,17 +29,16 @@ public final class HttpUtil
      * 向目标地址发送简单get请求，将结果使用UTF-8编码转为字符串
      * 
      * @author 刘湘湘
+     * 
      * @since 2019年4月8日 下午5:41:11
+     * 
      * @param url
      *            目标URL
+     * 
      * @return get请求获取到文本
-     * @throws IOException
-     *             请求过程发生IO异常
      */
-    public static Optional<String> simpleGet(String url)
-    {
-        try (CloseableHttpClient httpclient = HttpClients.createDefault())
-        {
+    public static Optional<String> simpleGet(String url) {
+        try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             final HttpGet httpget = new HttpGet(url);
             RequestConfig defaultRequestConfig = RequestConfig.custom()
                     .setCookieSpec(CookieSpecs.STANDARD)
@@ -61,8 +59,7 @@ public final class HttpUtil
             final ResponseHandler<Optional<String>> responseHandler = new SimpleResponseHandler();
             Optional<String> responseBody = httpclient.execute(httpget, responseHandler);
             return responseBody;
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new HttpRequestFailedException("请求失败", e);
         }
     }
