@@ -18,7 +18,7 @@ import org.apache.commons.beanutils.Converter;
  *          创建时间：2018年4月6日 下午3:52:23
  * @since 1.0.0
  */
-public final class LocalDateBeanUtil
+public final class BeanUtil
 {
     private static BeanUtilsBean beanUtilsBean;
     static
@@ -58,7 +58,7 @@ public final class LocalDateBeanUtil
         }, LocalDate.class);
     }
 
-    private LocalDateBeanUtil()
+    private BeanUtil()
     {
         throw new AssertionError("工具类禁止实例化！");
     }

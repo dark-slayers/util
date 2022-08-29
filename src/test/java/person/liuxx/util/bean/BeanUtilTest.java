@@ -16,7 +16,7 @@ import org.junit.Test;
  *          创建时间：2018年9月14日 下午12:26:30
  * @since 1.1.2
  */
-public class LocalDateBeanUtilTest
+public class BeanUtilTest
 {
     private TestObject obj1;
     private TestObject2 obj2;
@@ -52,7 +52,7 @@ public class LocalDateBeanUtilTest
     }
 
     /**
-     * {@link person.liuxx.util.bean.LocalDateBeanUtil#copyProperties(java.lang.Object, java.lang.Object)}
+     * {@link person.liuxx.util.bean.BeanUtil#copyProperties(java.lang.Object, java.lang.Object)}
      * 的测试方法。
      */
     @Test
@@ -60,31 +60,31 @@ public class LocalDateBeanUtilTest
     {
         System.out.println(obj1);
         System.out.println(obj2);
-        LocalDateBeanUtil.copyProperties(obj2, obj1);
+        BeanUtil.copyProperties(obj2, obj1);
         System.out.println(obj1);
         System.out.println(obj2);
         assertTrue(Objects.equals(obj2.getS1(), LocalDate.of(2018, 7, 12)));
     }
 
     /**
-     * {@link person.liuxx.util.bean.LocalDateBeanUtil#copyAppointProperties(java.lang.Object, java.lang.Object, java.lang.String[])}
+     * {@link person.liuxx.util.bean.BeanUtil#copyAppointProperties(java.lang.Object, java.lang.Object, java.lang.String[])}
      * 的测试方法。
      */
     @Test
     public void testCopyAppointProperties()
     {
-        LocalDateBeanUtil.copyProperties(obj2, obj1);
+        BeanUtil.copyProperties(obj2, obj1);
         assertTrue(Objects.equals(obj2.getS1(), LocalDate.of(2018, 7, 12)));
     }
 
     /**
-     * {@link person.liuxx.util.bean.LocalDateBeanUtil#copyIgnoreProperties(java.lang.Object, java.lang.Object, java.lang.String[])}
+     * {@link person.liuxx.util.bean.BeanUtil#copyIgnoreProperties(java.lang.Object, java.lang.Object, java.lang.String[])}
      * 的测试方法。
      */
     @Test
     public void testCopyIgnoreProperties()
     {
-        LocalDateBeanUtil.copyProperties(obj2, obj1);
+        BeanUtil.copyProperties(obj2, obj1);
         assertTrue(Objects.equals(obj2.getS1(), LocalDate.of(2018, 7, 12)));
     }
 }
